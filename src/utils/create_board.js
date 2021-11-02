@@ -1,9 +1,11 @@
+import get_random_weighted_value from "./get_random_weighted_value";
+
 export default function create_board(num) {
   const arr = [];
   for (let i = 0; i < num; i++) {
     const row = [];
     for (let j = 0; j < num; j++) {
-      const value = ["X", "O"][Math.floor(Math.random() * 2)];
+      const value = get_random_weighted_value();
       const isHidden = true;
       row.push({ isHidden, value });
     }

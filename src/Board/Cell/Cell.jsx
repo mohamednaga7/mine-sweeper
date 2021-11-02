@@ -12,12 +12,12 @@ export default function Cell({
 }) {
   return (
     <div
-      className={`${classes.cell} ${isHidden ? classes.hidden : ""} ${
-        gameEnded ? classes.frozen : ""
-      }`}
+      className={`${classes.cell} ${
+        isHidden && !(gameEnded && value === "X") ? classes.hidden : ""
+      } ${gameEnded ? classes.frozen : ""}`}
       onClick={() => handleClicked(x, y)}
     >
-      {!isHidden &&
+      {!(isHidden && !(gameEnded && value === "X")) &&
         (value === "X" ? (
           <img className={classes.cell_content} src={bomb} alt="shit" />
         ) : (
