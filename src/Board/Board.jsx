@@ -5,7 +5,9 @@ import create_board from "../utils/create_board";
 import count_bombs from "../utils/count_bombs";
 import GameEndDialogue from "../GameEndDialogue/GameEndDialogue";
 
-export default function Board({ numOfCells }) {
+const NUM_OF_CELLS = 17;
+
+export default function Board() {
   const [board, setBoard] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
   const [showDialogue, setShowDialogue] = useState(false);
@@ -28,7 +30,7 @@ export default function Board({ numOfCells }) {
     if (storedBoard) {
       setBoard(JSON.parse(storedBoard));
     } else {
-      setBoard(create_board(numOfCells));
+      setBoard(create_board(NUM_OF_CELLS));
     }
   }, []);
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function Board({ numOfCells }) {
   }, [gameEnded]);
 
   const resetGame = () => {
-    setBoard(create_board(numOfCells));
+    setBoard(create_board(NUM_OF_CELLS));
     setGameEnded(false);
     setShowDialogue(false);
   };
