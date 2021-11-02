@@ -8,9 +8,10 @@ import GameEndDialogue from "../GameEndDialogue/GameEndDialogue";
 export default function Board({ numOfCells }) {
   const [board, setBoard] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
+  const [showDialogue, setShowDialogue] = useState(false);
   const onCellClicked = (row, col) => {
     if (gameEnded) {
-      alert("please reset the game");
+      setShowDialogue(true);
       return;
     }
     const newBoard = board.map((row) => [...row]);
@@ -34,6 +35,15 @@ export default function Board({ numOfCells }) {
     localStorage.setItem("board", JSON.stringify(board));
   }, [board]);
 
+  useEffect(() => {
+    setTimeout(
+      () => {
+        setShowDialogue(gameEnded);
+      },
+      gameEnded ? 1000 : 0
+    );
+  }, [gameEnded]);
+
   const resetGame = () => {
     setBoard(create_board(numOfCells));
     setGameEnded(false);
@@ -41,7 +51,7 @@ export default function Board({ numOfCells }) {
 
   return (
     <React.Fragment>
-      {gameEnded && <GameEndDialogue onReset={resetGame} />}
+      {showDialogue && <GameEndDialogue onReset={resetGame} />}
       <h1>Mine Sweeper</h1>
       <button className="btn" onClick={resetGame}>
         Reset Game
@@ -58,6 +68,7 @@ export default function Board({ numOfCells }) {
                   isHidden={cell.isHidden}
                   handleClicked={onCellClicked}
                   value={cell.value}
+                  gameEnded={gameEnded}
                 />
               ))}
             </div>

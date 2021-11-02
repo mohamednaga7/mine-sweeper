@@ -2,10 +2,19 @@ import React from "react";
 import classes from "./Cell.module.css";
 import bomb from "./bomb.svg";
 
-export default function Cell({ x, y, value, handleClicked, isHidden }) {
+export default function Cell({
+  x,
+  y,
+  value,
+  handleClicked,
+  isHidden,
+  gameEnded,
+}) {
   return (
     <div
-      className={`${classes.cell} ${isHidden ? classes.hidden : ""}`}
+      className={`${classes.cell} ${isHidden ? classes.hidden : ""} ${
+        gameEnded ? classes.frozen : ""
+      }`}
       onClick={() => handleClicked(x, y)}
     >
       {!isHidden &&
