@@ -18,8 +18,6 @@ export default function Board() {
     }
     const newBoard = board.map((row) => [...row]);
     newBoard[row][col].isHidden = false;
-    newBoard[row][col].value =
-      newBoard[row][col].value === "X" ? "X" : count_bombs(row, col, board);
     setBoard(newBoard);
     if (newBoard[row][col].value === "X") {
       setGameEnded(true);
