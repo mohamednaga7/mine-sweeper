@@ -47,6 +47,7 @@ export default function Board({ numOfCells }) {
   const resetGame = () => {
     setBoard(create_board(numOfCells));
     setGameEnded(false);
+    setShowDialogue(false);
   };
 
   return (
