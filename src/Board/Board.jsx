@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell/Cell";
 import classes from "./Board.module.css";
 import create_board from "../utils/create_board";
-import count_bombs from "../utils/count_bombs";
 import GameEndDialogue from "../GameEndDialogue/GameEndDialogue";
 
 const NUM_OF_CELLS = 17;
