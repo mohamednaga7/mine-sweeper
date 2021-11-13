@@ -5,17 +5,47 @@ import create_board from "../utils/create_board";
 import GameEndDialogue from "../GameEndDialogue/GameEndDialogue";
 
 const NUM_OF_CELLS = 17;
-
 export default function Board() {
   const [board, setBoard] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
   const [showDialogue, setShowDialogue] = useState(false);
-  const [time, setTime] = useState("00:00");
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    if (gameStarted) {
+      const timer = setTimeout(() => {
+        setSeconds((prev) => {
+          if (prev === 59) {
+            setMinutes((prevMins) => prevMins + 1);
+            return seconds + 1;
+          } else {
+            return seconds + 1;
+          }
+        });
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [seconds, gameStarted]);
+
+  useEffect(() => {
+    if (gameEnded) {
+      setGameStarted(false);
+      // todo add the timer value and check if the player has won
+      setSeconds(0);
+      setMinutes(0);
+    }
+  }, [gameEnded]);
+
   const onCellClicked = (row, col) => {
     if (gameEnded) {
       setShowDialogue(true);
       return;
     }
+    setGameStarted(true);
     const newBoard = board.map((row) => [...row]);
     newBoard[row][col].isHidden = false;
     setBoard(newBoard);
@@ -46,7 +76,10 @@ export default function Board() {
 
   const resetGame = () => {
     setBoard(create_board(NUM_OF_CELLS));
+    setSeconds(0);
+    setMinutes(0);
     setGameEnded(false);
+    setGameStarted(false);
     setShowDialogue(false);
   };
 
@@ -59,7 +92,9 @@ export default function Board() {
           Reset Game
         </button>
         <div className={classes.counter}>
-          <h3>{time}</h3>
+          <h3>
+            {minutes}:{seconds}
+          </h3>
         </div>
       </div>
       <div className={classes.board}>
