@@ -1,7 +1,7 @@
 export default function get_random_weighted_value() {
   const data = [
     ["X", 1],
-    ["O", 3],
+    ["O", 4],
   ];
 
   let out = [];

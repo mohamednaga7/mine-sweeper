@@ -23,16 +23,7 @@ function minesweeper(arr) {
         rowArr.push({ value: "X", isHidden: true });
         continue;
       }
-      const neighbors = [
-        [i - 1, j - 1],
-        [i - 1, j],
-        [i - 1, j + 1],
-        [i, j - 1],
-        [i, j + 1],
-        [i + 1, j - 1],
-        [i + 1, j],
-        [i + 1, j + 1],
-      ];
+      const neighbors = createNeighbors(i, j);
       let bombCount = 0;
       for (const [row, col] of neighbors) {
         if (
@@ -51,3 +42,14 @@ function minesweeper(arr) {
   }
   return board;
 }
+
+const createNeighbors = (i, j) => [
+  [i - 1, j - 1],
+  [i - 1, j],
+  [i - 1, j + 1],
+  [i, j - 1],
+  [i, j + 1],
+  [i + 1, j - 1],
+  [i + 1, j],
+  [i + 1, j + 1],
+];
