@@ -7,3 +7,27 @@
   width: 100%;
   justify-content: stretch;
 }
+
+.header {
+  display: flex;
+  width: 43rem;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.counter {
+  border: 2px rgb(0, 32, 68);
+  border-style: double;
+  min-width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter h3 {
+  font-size: 3rem;
+  line-height: normal;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+}

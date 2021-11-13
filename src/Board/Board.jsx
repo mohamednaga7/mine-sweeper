@@ -10,6 +10,7 @@ export default function Board() {
   const [board, setBoard] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
   const [showDialogue, setShowDialogue] = useState(false);
+  const [time, setTime] = useState("00:00");
   const onCellClicked = (row, col) => {
     if (gameEnded) {
       setShowDialogue(true);
@@ -53,9 +54,14 @@ export default function Board() {
     <React.Fragment>
       {showDialogue && <GameEndDialogue onReset={resetGame} />}
       <h1>Mine Sweeper</h1>
-      <button className="btn" onClick={resetGame}>
-        Reset Game
-      </button>
+      <div className={classes.header}>
+        <button className="btn" onClick={resetGame}>
+          Reset Game
+        </button>
+        <div className={classes.counter}>
+          <h3>{time}</h3>
+        </div>
+      </div>
       <div className={classes.board}>
         {board.map((row, i) => {
           return (
