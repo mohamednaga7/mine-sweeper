@@ -19,7 +19,7 @@ export default function Board() {
         setSeconds((prev) => {
           if (prev === 59) {
             setMinutes((prevMins) => prevMins + 1);
-            return seconds + 1;
+            return 0;
           } else {
             return seconds + 1;
           }
@@ -54,16 +54,23 @@ export default function Board() {
     }
   };
   useEffect(() => {
-    const storedBoard = localStorage.getItem("board");
-    if (storedBoard) {
-      setBoard(JSON.parse(storedBoard));
+    const storedData = localStorage.getItem("data");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      const board = parsedData["board"];
+      const minutes = parsedData["minutes"];
+      const seconds = parsedData["seconds"];
+      setBoard(board);
+      setMinutes(minutes);
+      setSeconds(seconds);
     } else {
       setBoard(create_board(NUM_OF_CELLS));
     }
   }, []);
+
   useEffect(() => {
-    localStorage.setItem("board", JSON.stringify(board));
-  }, [board]);
+    localStorage.setItem("data", JSON.stringify({ board, minutes, seconds }));
+  }, [board, minutes, seconds]);
 
   useEffect(() => {
     setTimeout(
@@ -93,7 +100,15 @@ export default function Board() {
         </button>
         <div className={classes.counter}>
           <h3>
-            {minutes}:{seconds}
+            {minutes.toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}
+            :
+            {seconds.toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}
           </h3>
         </div>
       </div>
